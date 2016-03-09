@@ -3,7 +3,7 @@ Apache Kafka on Docker
 
 This repository holds a build definition and supporting files for building a
 [Docker] image to run [Kafka] in containers. It is published as an Automated
-Build [on the Docker registry], as `ches/kafka`.
+Build [on the Docker registry], as `egloo/docker-kafka`, and forked from [ches/docker-kafka].
 
 This build intends to provide an operator-friendly Kafka deployment suitable for
 usage in a production Docker environment:
@@ -186,7 +186,7 @@ the Kafka container(s).
 If you need finer-grained configuration, you can totally control the relevant
 Java system properties by setting `KAFKA_JMX_OPTS` yourself---see `start.sh`.
 
-Fork Legacy
+Fork Legacy [relateiq]
 -----------
 
 This image/repo was originally forked from [relateiq/kafka]. My original
@@ -202,6 +202,9 @@ tallying far more downloads on Docker Hub, I have made further updates and
 changes with the expectation of maintaining independently from here on. This
 project's changelog file describes these in detail.
 
+Fork Legacy [eGloo]
+
+Updated to default to 0.9.0.1 and Scala 2.11
 
 [Docker]: http://www.docker.io
 [Kafka]: http://kafka.apache.org
