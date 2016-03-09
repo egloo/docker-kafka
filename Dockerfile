@@ -1,16 +1,24 @@
-# Builds an image for Apache Kafka 0.8.1.1 from binary distribution.
-#
-# The netflixoss/java base image runs Oracle Java 7 installed atop the
-# ubuntu:trusty (14.04) official image. Docker's official java images are
-# OpenJDK-only currently, and the Kafka project, Confluent, and most other
-# major Java projects test and recommend Oracle Java for production for optimal
-# performance.
+# Builds an image for Apache Kafka 0.9.0.1 from binary distribution.
 
-FROM netflixoss/java:7
-MAINTAINER Ches Martin <ches@whiskeyandgrits.net>
+FROM ubuntu:trusty
+MAINTAINER George Cooper <george.cooper@egloo.com>
 
-# The Scala 2.10 build is currently recommended by the project.
-ENV KAFKA_VERSION=0.8.2.1 KAFKA_SCALA_VERSION=2.10 JMX_PORT=7203
+# Install Oracle Java 8
+ENV JAVA_VER 8
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
+RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' >> /etc/apt/sources.list && \
+    echo 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' >> /etc/apt/sources.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886 && \
+    apt-get update && \
+    echo oracle-java${JAVA_VER}-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections && \
+    apt-get install -y --force-yes --no-install-recommends oracle-java${JAVA_VER}-installer oracle-java${JAVA_VER}-set-default && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists && \
+    rm -rf /var/cache/oracle-jdk${JAVA_VER}-installer
+
+# The Scala 2.11 build is currently recommended by the project.
+ENV KAFKA_VERSION=0.9.0.1 KAFKA_SCALA_VERSION=2.11 JMX_PORT=7203
 ENV KAFKA_RELEASE_ARCHIVE kafka_${KAFKA_SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
 RUN mkdir /kafka /data /logs
