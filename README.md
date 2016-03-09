@@ -3,7 +3,7 @@ Apache Kafka on Docker
 
 This repository holds a build definition and supporting files for building a
 [Docker] image to run [Kafka] in containers. It is published as an Automated
-Build [on the Docker registry], as `egloo/docker-kafka`, and forked from [ches/docker-kafka].
+Build [on the Docker registry], as `egloo/docker-kafka`, and was originally forked from [ches/docker-kafka].
 
 This build intends to provide an operator-friendly Kafka deployment suitable for
 usage in a production Docker environment:
@@ -203,6 +203,7 @@ changes with the expectation of maintaining independently from here on. This
 project's changelog file describes these in detail.
 
 Fork Legacy [eGloo]
+-----------
 
 Updated to default to 0.9.0.1 and Scala 2.11
 
