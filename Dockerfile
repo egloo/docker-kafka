@@ -1,24 +1,10 @@
-# Builds an image for Apache Kafka 0.9.0.1 from binary distribution.
+# Builds an image for Apache Kafka 2.0.0 from binary distribution.
 
-FROM ubuntu:trusty
+FROM netflixoss/java:8
 MAINTAINER George Cooper <george.cooper@egloo.com>
 
-# Install Oracle Java 8
-ENV JAVA_VER 8
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
-
-RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' >> /etc/apt/sources.list && \
-    echo 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' >> /etc/apt/sources.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886 && \
-    apt-get update && \
-    echo oracle-java${JAVA_VER}-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections && \
-    apt-get install -y --force-yes --no-install-recommends oracle-java${JAVA_VER}-installer oracle-java${JAVA_VER}-set-default && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists && \
-    rm -rf /var/cache/oracle-jdk${JAVA_VER}-installer
-
-# The Scala 2.11 build is currently recommended by the project.
-ENV KAFKA_VERSION=0.11.0.0 KAFKA_SCALA_VERSION=2.11 JMX_PORT=7203
+# The Scala 2.12 build is currently recommended by the project.
+ENV KAFKA_VERSION=2.0.0 KAFKA_SCALA_VERSION=2.12 JMX_PORT=7203
 ENV KAFKA_RELEASE_ARCHIVE kafka_${KAFKA_SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
 RUN mkdir /kafka /data /logs
